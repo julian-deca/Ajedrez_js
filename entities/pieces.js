@@ -1,7 +1,6 @@
 class Piece{
     constructor(square, width, height,color) {
         this.square = square;
-        console.log(square)
         this.x = this.square.x;
         this.y = this.square.y;
         this.width = width;
@@ -10,22 +9,19 @@ class Piece{
         this.selected = false;
     }
     update(position) {
-        if (position.x >= this.x && position.x <= this.x + this.width) {
-            if (position.y >= this.y && position.y <= this.y + this.height) {
-              if (position.isDown) {
+        if (position.x >= this.x && position.x <= this.x + this.square.width) {
+            if (position.y >= this.y && position.y <= this.y + this.square.height) {
+              if (position.isDown && this.selected == false) {
                 this.selected = true;
-                this.x = position.x - this.width * 0.5;
-                this.y = position.y - this.height * 0.5;
-              } else if (this.isDragged) {
-                this.selected = false;
-              }
+                console.log(this);
             }
           }
-          if (!position.isDown) {
-            this.selected = false;
-          }
+        //   if (!position.isDown) {
+        //     this.selected = false;
+        //   }
     }
     
+}
 }
 export class Pawn extends Piece{
     constructor(square, width, height,color){
@@ -45,9 +41,9 @@ export class Pawn extends Piece{
 }
 export class King extends Piece{
     constructor(square, height,color){
-        super(square, height, color)
+        super(square, height * 0.5, height, color)
         if(this.color == "white"){
-            this.image = whiteKing.x, square.y
+            this.image = whiteKing;
         }
         else{
             this.image = blackKing;
@@ -55,32 +51,29 @@ export class King extends Piece{
         
     }
     draw(context) {
-        context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
     }
    
 }
 export class Queen extends Piece{
     constructor(square, height,color){
-        console.log(square);
-        super(square, height, color)
+        super(square, height * 0.5, height, color)
         if(this.color == "white"){
             this.image = whiteQueen;
         }
         else{
             this.image = blackQueen;
         }
-        console.log(this.square);
-
         
     }
     draw(context) {
-        context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
     }
    
 }
 export class Rook extends Piece{
     constructor(square, height,color){
-        super(square, height, color)
+        super(square, height * 0.5, height, color)
         if(this.color == "white"){
             this.image = whiteRook;
         }
@@ -90,13 +83,13 @@ export class Rook extends Piece{
         
     }
     draw(context) {
-        context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
     }
    
 }
 export class Bishop extends Piece{
     constructor(square, height,color){
-        super(square, height, color)
+        super(square, height * 0.5, height, color)
         if(this.color == "white"){
             this.image = whiteBishop;
         }
@@ -106,13 +99,13 @@ export class Bishop extends Piece{
         
     }
     draw(context) {
-        context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
     }
    
 }
 export class Knight extends Piece{
     constructor(square, height,color){
-        super(square, height, color)
+        super(square, height * 0.5, height, color)
         if(this.color == "white"){
             this.image = whiteKnight;
         }
@@ -122,7 +115,7 @@ export class Knight extends Piece{
         
     }
     draw(context) {
-        context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
     }
    
 }
