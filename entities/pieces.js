@@ -1,7 +1,9 @@
 class Piece{
-    constructor(x, y, width, height,color) {
-        this.x = x;
-        this.y = y;
+    constructor(square, width, height,color) {
+        this.square = square;
+        console.log(square)
+        this.x = this.square.x;
+        this.y = this.square.y;
         this.width = width;
         this.height = height;
         this.color = color;
@@ -26,8 +28,8 @@ class Piece{
     
 }
 export class Pawn extends Piece{
-    constructor(x, y, width, height,color){
-        super(x, y, width, height, color)
+    constructor(square, width, height,color){
+        super(square, width, height, color)
         if(this.color == "white"){
             this.image = whitePawn;
         }
@@ -42,10 +44,10 @@ export class Pawn extends Piece{
    
 }
 export class King extends Piece{
-    constructor(x, y, height,color){
-        super(x+height*.25, y, height * 0.5, height, color)
+    constructor(square, height,color){
+        super(square, height, color)
         if(this.color == "white"){
-            this.image = whiteKing;
+            this.image = whiteKing.x, square.y
         }
         else{
             this.image = blackKing;
@@ -58,14 +60,17 @@ export class King extends Piece{
    
 }
 export class Queen extends Piece{
-    constructor(x, y, height,color){
-        super(x+height*.25, y, height * 0.5, height, color)
+    constructor(square, height,color){
+        console.log(square);
+        super(square, height, color)
         if(this.color == "white"){
             this.image = whiteQueen;
         }
         else{
             this.image = blackQueen;
         }
+        console.log(this.square);
+
         
     }
     draw(context) {
@@ -74,8 +79,8 @@ export class Queen extends Piece{
    
 }
 export class Rook extends Piece{
-    constructor(x, y, height,color){
-        super(x+height*.25, y, height * 0.5, height, color)
+    constructor(square, height,color){
+        super(square, height, color)
         if(this.color == "white"){
             this.image = whiteRook;
         }
@@ -90,8 +95,8 @@ export class Rook extends Piece{
    
 }
 export class Bishop extends Piece{
-    constructor(x, y, height,color){
-        super(x+height*.25, y, height * 0.5, height, color)
+    constructor(square, height,color){
+        super(square, height, color)
         if(this.color == "white"){
             this.image = whiteBishop;
         }
@@ -106,8 +111,8 @@ export class Bishop extends Piece{
    
 }
 export class Knight extends Piece{
-    constructor(x, y, height,color){
-        super(x+height*.25, y, height * 0.5, height, color)
+    constructor(square, height,color){
+        super(square, height, color)
         if(this.color == "white"){
             this.image = whiteKnight;
         }
