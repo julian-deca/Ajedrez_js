@@ -38,13 +38,7 @@ class MouseMovement {
       this.isDown = false;
     });
 
-    canvas.addEventListener("mousemove", (e) => {
-      if (this.isDown) {
-        const pos = getMousePos(canvas, e);
-        this.x = pos.x;
-        this.y = pos.y;
-      }
-    });
+    
   }
 }
 
@@ -107,8 +101,8 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   arr.forEach((obj) => obj.draw(ctx));
   
-  mouse.update();
   arr.forEach((obj) => obj.update(mouse));
+  mouse.update();
   requestAnimationFrame(animate);
 }
 animate();

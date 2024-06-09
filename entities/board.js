@@ -7,6 +7,8 @@ export class Board {
       this.height = height;
       this.squares = [];
       this.pieces = [];
+      this.selectedPiece = false;
+      this.selectedSquare = false;
       this.createSquares();
       this.addPieces();
     }
@@ -19,6 +21,20 @@ export class Board {
     }
     update(position){
         this.pieces.forEach((piece)=> piece.update(position));
+        if(position.isDown && this.selectedPiece != false && ! this.selectedPiece.detectCollision(position) && this.selectedSquare == false){
+            this.selectedSquare = this.squares.find(square => square.detectCollision(position)); 
+            if (this.selectedSquare){
+                this.selectedPiece.y = this.selectedSquare.y;
+                this.selectedPiece.x = this.selectedSquare.x
+                this.selectedPiece.square = this.selectedSquare;
+            }
+            this.selectedSquare = false;
+            this.selectedPiece = false;
+            position.isDown = false;
+            console.log(this.selectedPiece);
+            console.log(this.selectedSquare)
+        }
+     
     }
     createSquares(){
         for(let i = 0; i < 8; i++){
@@ -36,68 +52,68 @@ export class Board {
     addPieces(){
         this.pieces.push(new King((this.squares.find(square => {
             return square.id.x == 4 && square.id.y == 7
-          })), 100,"white"));
+          })), 100,"white",this));
         this.pieces.push(new King(this.squares.find(square => {
             return square.id.x == 4 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
 
         this.pieces.push(new Queen(this.squares.find((square) => {
             return square.id.x == 3 && square.id.y == 7
-          }), 100,"white"));
+          }), 100,"white",this));
         this.pieces.push(new Queen(this.squares.find((square) => {
             return square.id.x == 3 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
 
         this.pieces.push(new Rook(this.squares.find(square => {
             return square.id.x == 0 && square.id.y == 7
-          }), 100,"white"));
+          }), 100,"white",this));
         this.pieces.push(new Rook(this.squares.find(square => {
             return square.id.x == 7 && square.id.y == 7
-          }), 100,"white"));
+          }), 100,"white",this));
 
         this.pieces.push(new Rook(this.squares.find(square => {
             return square.id.x == 0 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
         this.pieces.push(new Rook(this.squares.find(square => {
             return square.id.x == 7 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
 
         this.pieces.push(new Bishop(this.squares.find(square => {
             return square.id.x == 2 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
         this.pieces.push(new Bishop(this.squares.find(square => {
             return square.id.x == 5 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
 
         this.pieces.push(new Bishop(this.squares.find(square => {
             return square.id.x == 2 && square.id.y == 7
-          }), 100,"white"));
+          }), 100,"white",this));
         this.pieces.push(new Bishop(this.squares.find(square => {
             return square.id.x == 5 && square.id.y == 7
-          }), 100,"white"));
+          }), 100,"white",this));
 
         this.pieces.push(new Knight(this.squares.find(square => {
             return square.id.x == 1 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
         this.pieces.push(new Knight(this.squares.find(square => {
             return square.id.x == 6 && square.id.y == 0
-          }), 100,"black"));
+          }), 100,"black",this));
 
         this.pieces.push(new Knight(this.squares.find(square => {
             return square.id.x == 1 && square.id.y == 7
-          }), 100,"white"));
+          }), 100,"white",this));
         this.pieces.push(new Knight(this.squares.find(square => {
             return square.id.x == 6 && square.id.y == 7
-          }), 100,"white"));
+          }), 100,"white",this));
 
 
         for(let i = 0; i<8;i++){
             this.pieces.push(new Pawn(this.squares.find(square => {
                 return square.id.x == i && square.id.y == 1
-              }), 100, 100, 100,"black"));
+              }), 100, 100,"black",this));
             this.pieces.push(new Pawn(this.squares.find(square => {
                 return square.id.x == i && square.id.y == 6
-              }), 100, 100,"white"));
+              }), 100, 100,"white",this));
 
         }
     }
@@ -118,5 +134,9 @@ export class Board {
         context.fillRect(this.x, this.y, this.width, this.height);
         context.fillStyle = "black";
     }
+    detectCollision(position)
+{
+    return (position.x >= this.x && position.x <= this.x + this.width && position.y >= this.y && position.y <= this.y + this.height);
+}
 
 }
