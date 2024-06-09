@@ -118,6 +118,10 @@ export class Board {
         }
     }
     
+    isOccupied(square) {
+      return square.piece !== false;
+  }
+
   }
   class Square{
     constructor(x, y, width, height,color,id) {
