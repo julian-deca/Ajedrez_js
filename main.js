@@ -6,6 +6,16 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 800;
 
+let grid =[
+  [11,10,9,8,7,9,10,11],
+  [12,12,12,12,12,12,12,12],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0],
+  [6,6,6,6,6,6,6,6],
+  [5,4,3,2,1,3,4,5]
+  ];
 
 const rectWidth = 200;
 const rectHeight = 200;
@@ -93,7 +103,7 @@ class Rect {
 
 
 const mouse = new MouseMovement(0, 0);
-const board = new Board(canvas.width, canvas.height);
+const board = new Board(canvas.width, canvas.height,grid);
 
 const arr = [board ];
 

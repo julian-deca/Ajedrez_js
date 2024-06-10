@@ -1,6 +1,8 @@
 import {King,Pawn,Queen,Bishop,Knight,Rook} from "/entities/pieces.js"
+
 export class Board {
-    constructor(width,height) {
+    constructor(width,height,grid) {
+      this.grid = grid;
       this.x = 0;
       this.y = 0;
       this.width = width;
@@ -9,8 +11,9 @@ export class Board {
       this.pieces = [];
       this.selectedPiece = false;
       this.selectedSquare = false;
-      this.createSquares();
-      this.addPieces();
+      // this.createSquares();
+      // this.addPieces();
+      this.refresh()
     }
     draw(context) {
       
@@ -24,31 +27,92 @@ export class Board {
         if(position.isDown && this.selectedPiece != false && ! this.selectedPiece.detectCollision(position) && this.selectedSquare == false){
             this.selectedSquare = this.squares.find(square => square.detectCollision(position)); 
             if (this.selectedSquare){
-                this.selectedPiece.y = this.selectedSquare.y;
-                this.selectedPiece.x = this.selectedSquare.x
-                this.selectedPiece.square = this.selectedSquare;
+                this.grid[this.selectedPiece.square.id.y][this.selectedPiece.square.id.x] = 0
+                this.grid[this.selectedSquare.id.y][this.selectedSquare.id.x] = this.selectedPiece.value;
+                console.log(this.grid[this.selectedPiece.square.id.x][this.selectedPiece.square.id.y])
+                console.log(this.selectedSquare)
+
+                this.refresh();
             }
             this.selectedSquare = false;
             this.selectedPiece = false;
             position.isDown = false;
-            console.log(this.selectedPiece);
-            console.log(this.selectedSquare)
+            // console.log(this.selectedPiece);
         }
      
     }
-    createSquares(){
-        for(let i = 0; i < 8; i++){
-            for (let j = 0; j < 8; j++){
-                let color;
-                if((i%2==0 && j%2!=0)||(i%2!=0 && j%2==0)){
-                    color = "#739954";
-                }
-                else{
-                   color = "#f7ffd6";
-                }
-            this.squares.push(new Square(i*100, j*100,100,100,color,{x:i,y:j}));
-            }}
+    refresh() {
+      this.squares.splice(0,this.squares.length -1);
+      this.pieces.splice(0,this.pieces.length -1);
+
+      for(let i = 0; i < this.grid.length; i++) {
+        for(let j = 0; j < this.grid[i].length; j++) {
+          {
+            let color;
+            if((i%2==0 && j%2!=0)||(i%2!=0 && j%2==0)){
+                color = "#739954";
+            }
+            else{
+               color = "#f7ffd6";
+            }
+        let square = new Square(i*100, j*100,100,100,color,{x:i,y:j})
+        this.squares.push(square);
+        let mapObj = this.grid[j][i];
+        switch (mapObj) {
+          case 1:
+            this.pieces.push(new King(square, 100,"white",this));
+            break;
+          case 2:
+            this.pieces.push(new Queen(square, 100,"white",this));
+            break;
+          case 3:
+            this.pieces.push(new Bishop(square, 100,"white",this));
+            break;
+          case 4:
+            this.pieces.push(new Knight(square, 100,"white",this));
+            break;
+          case 5:
+        this.pieces.push(new Rook(square, 100,"white",this));
+            break;
+          case 6:
+            this.pieces.push(new Pawn(square, 100, 100,"white",this));
+            break;
+          case 7:
+            this.pieces.push(new King(square, 100,"black",this));
+            break;
+          case 8:
+            this.pieces.push(new Queen(square, 100,"black",this));
+            break;
+          case 9:
+            this.pieces.push(new Bishop(square, 100,"black",this));
+            break;
+          case 10:
+            this.pieces.push(new Knight(square, 100,"black",this));
+            break;
+          case 11:
+            this.pieces.push(new Rook(square, 100,"black",this));
+            break;
+          case 12:
+            this.pieces.push(new Pawn(square, 100, 100,"black",this));
+            break;
+        }
+        }
+      }
     }
+  }
+    // createSquares(){
+    //     for(let i = 0; i < 8; i++){
+    //         for (let j = 0; j < 8; j++){
+    //             let color;
+    //             if((i%2==0 && j%2!=0)||(i%2!=0 && j%2==0)){
+    //                 color = "#739954";
+    //             }
+    //             else{
+    //                color = "#f7ffd6";
+    //             }
+    //         this.squares.push(new Square(i*100, j*100,100,100,color,{x:i,y:j}));
+    //         }}
+    // }
     addPieces(){
         this.pieces.push(new King((this.squares.find(square => {
             return square.id.x == 4 && square.id.y == 7
@@ -118,9 +182,9 @@ export class Board {
         }
     }
     
-    isOccupied(square) {
-      return square.piece !== false;
-  }
+  //   isOccupied(square) {
+  //     return square.piece !== false;
+  // }
 
   }
   class Square{
