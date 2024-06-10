@@ -1,13 +1,27 @@
 * {
     margin: 0;
     padding: 0;
+    background-color: rgb(30, 37, 37);
+  }
+  #title {
+    position: relative;
+    text-align: center;
+    top: 10px;
+    font-size: 50px;
+    color: white;
+    text-shadow: 5px 5px 10px black;
+    font-family: "Montserrat";
   }
   #canvas1 {
     position: absolute;
     top: 50%;
     left: 50%;
     
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -45%);
+    outline: 10px solid black;
+    border-radius: 5px;
+
+    box-shadow: 20px 20px 20px  black;
   }
   #blackPawn,#whitePawn,#blackKing,#whiteKing,#whiteQueen,#blackQueen,#blackRook,#whiteRook,#blackBishop,#whiteBishop,#whiteKnight,#blackKnight {
     display: none;

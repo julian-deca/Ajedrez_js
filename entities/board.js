@@ -20,8 +20,7 @@ export class Board {
     draw(context) {
       
       this.squares.forEach((square)=> square.draw(context));
-      context.lineWidth = 10;
-      context.strokeRect(this.x, this.y, this.width, this.height);
+      
       this.pieces.forEach((piece)=> piece.draw(context));
     }
     update(position){
