@@ -11,18 +11,34 @@ class Piece{
     
     update(position) {
         // if(this.puedeMoverse()){
-        if ( this.detectCollision(position)&&position.isDown && this.board.selectedPiece != this && this.board.turn == this.color) {
-            
+        if ( this.detectCollision(position)&&position.isDown && this.board.turn == this.color) {
+            if(this.board.selectedPiece != this){
+                this.board.selectedPiece = this;
+                console.log(this);
+            }
+            else{
+                this.board.selectedPiece = false;
 
-                   this.board.selectedPiece = this;
-                    console.log(this);
-            
-            
+            }
+            position.isDown = false;
+
+                   
         }
     // }
     }
     draw(context) {
-        context.drawImage(this.image, this.x+this.width*.25, this.y, this.width*.5, this.height);
+
+        if(this.board.selectedPiece == this)
+            {
+                this.image.style.outlite = "10px solid black";
+            context.drawImage(this.image, this.x+this.width*.2, this.y-this.height*.1, this.width*.6, this.height*1.1);
+
+            }
+        else{
+
+            context.drawImage(this.image, this.x+this.width*.25, this.y, this.width*.5, this.height);
+        }
+        
     }
     
 detectCollision(position)
@@ -50,7 +66,16 @@ export class Pawn extends Piece{
         
     }
     draw(context) {
-        context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        if(this.board.selectedPiece == this)
+            {
+            context.drawImage(this.image, this.x-this.width*.05, this.y-this.height*.1, this.width*1.1, this.height*1.1);
+
+            }
+        else{
+
+            context.drawImage(this.image, this.x, this.y, this.width, this.height);
+        }
+        
     }
    
 //     puedeMoverse(squareObj){

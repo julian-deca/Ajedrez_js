@@ -25,6 +25,8 @@ export class Board {
     }
     update(position){
       if (this.selectedPiece){
+        // this.selectedPiece.width = this.squareSize*1.5
+        // this.selectedPiece.height = this.squareSize*1.5
 
       }
         this.pieces.forEach((piece)=> piece.update(position));
