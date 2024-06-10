@@ -1,12 +1,12 @@
 class Piece{
-    constructor(square, width, height,color,board) {
+    constructor(square,color,board) {
         this.board = board;
         this.square = square;
+        this.color = color;
         this.x = this.square.x;
         this.y = this.square.y;
-        this.width = width;
-        this.height = height;
-        this.color = color;
+        this.width = this.square.width;
+        this.height = this.square.height;
     }
     
     update(position) {
@@ -21,6 +21,9 @@ class Piece{
         }
     // }
     }
+    draw(context) {
+        context.drawImage(this.image, this.x+this.width*.25, this.y, this.width*.5, this.height);
+    }
     
 detectCollision(position)
 {
@@ -30,8 +33,8 @@ detectCollision(position)
 }
 
 export class Pawn extends Piece{
-    constructor(square, width, height,color,board){
-        super(square, width, height, color,board)
+    constructor(square,color,board){
+        super(square, color,board)
         if(this.color == "white"){
             this.image = whitePawn;
             this.direction = -1;
@@ -78,8 +81,8 @@ export class Pawn extends Piece{
 
 
 export class King extends Piece{
-    constructor(square, height,color,board){
-        super(square, height * 0.5, height, color,board)
+    constructor(square,color,board){
+        super(square, color,board)
         this.moved = false;
         if(this.color == "white"){
             this.image = whiteKing;
@@ -91,9 +94,7 @@ export class King extends Piece{
         }
         
     }
-    draw(context) {
-        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
-    }
+   
    
     // puedeMoverse(squareObj){
     //     const row = this.square.y;
@@ -114,8 +115,8 @@ export class King extends Piece{
     // }
 }
 export class Queen extends Piece{
-    constructor(square, height,color,board){
-        super(square, height * 0.5, height, color,board)
+    constructor(square,color,board){
+        super(square, color,board)
         if(this.color == "white"){
             this.image = whiteQueen;
             this.value = 2
@@ -126,17 +127,14 @@ export class Queen extends Piece{
         }
         
     }
-    draw(context) {
-        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
-    }
    
     puedeMoverse(){
         return true;
     }
 }
 export class Rook extends Piece{
-    constructor(square, height,color,board){
-        super(square, height * 0.5, height, color,board)
+    constructor(square,color,board){
+        super(square, color,board)
         this.moved = false;
         if(this.color == "white"){
             this.image = whiteRook;
@@ -150,16 +148,14 @@ export class Rook extends Piece{
         }
         
     }
-    draw(context) {
-        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
-    }
+ 
    puedeMoverse(){
         return true;
     }
 }
 export class Bishop extends Piece{
-    constructor(square, height,color,board){
-        super(square, height * 0.5, height, color,board)
+    constructor(square,color,board){
+        super(square, color,board)
         if(this.color == "white"){
             this.image = whiteBishop;
             this.value = 3
@@ -172,16 +168,14 @@ export class Bishop extends Piece{
         }
         
     }
-    draw(context) {
-        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
-    }
+   
     puedeMoverse(){
         return false;
     }
 }
 export class Knight extends Piece{
-    constructor(square, height,color,board){
-        super(square, height * 0.5, height, color,board)
+    constructor(square,color,board){
+        super(square, color,board)
         if(this.color == "white"){
             this.image = whiteKnight;
             this.value = 4
@@ -194,9 +188,7 @@ export class Knight extends Piece{
         }
         
     }
-    draw(context) {
-        context.drawImage(this.image, this.x+this.width*.5, this.y, this.width, this.height);
-    }
+   
     puedeMoverse(){
         const row = this.square.y;
         const col = this.square.x;

@@ -12,6 +12,7 @@ export class Board {
       this.selectedPiece = false;
       this.selectedSquare = false;
       this.turn = "white";
+      this.squareSize = width/8
       // this.createSquares();
       // this.addPieces();
       this.refresh()
@@ -24,6 +25,9 @@ export class Board {
       this.pieces.forEach((piece)=> piece.draw(context));
     }
     update(position){
+      if (this.selectedPiece){
+
+      }
         this.pieces.forEach((piece)=> piece.update(position));
         if(position.isDown && this.selectedPiece != false && ! this.selectedPiece.detectCollision(position) && this.selectedSquare == false){
             this.selectedSquare = this.squares.find(square => square.detectCollision(position)); 
@@ -57,45 +61,45 @@ export class Board {
             else{
                color = "#f7ffd6";
             }
-        let square = new Square(i*100, j*100,100,100,color,{x:i,y:j})
+        let square = new Square(i*this.squareSize, j*this.squareSize,this.squareSize,this.squareSize,color,{x:i,y:j})
         this.squares.push(square);
         let mapObj = this.grid[j][i];
         switch (mapObj) {
           case 1:
-            this.pieces.push(new King(square, 100,"white",this));
+            this.pieces.push(new King(square,"white",this));
             break;
           case 2:
-            this.pieces.push(new Queen(square, 100,"white",this));
+            this.pieces.push(new Queen(square,"white",this));
             break;
           case 3:
-            this.pieces.push(new Bishop(square, 100,"white",this));
+            this.pieces.push(new Bishop(square,"white",this));
             break;
           case 4:
-            this.pieces.push(new Knight(square, 100,"white",this));
+            this.pieces.push(new Knight(square,"white",this));
             break;
           case 5:
-            this.pieces.push(new Rook(square, 100,"white",this));
+            this.pieces.push(new Rook(square,"white",this));
             break;
           case 6:
-            this.pieces.push(new Pawn(square, 100, 100,"white",this));
+            this.pieces.push(new Pawn(square,"white",this));
             break;
           case 7:
-            this.pieces.push(new King(square, 100,"black",this));
+            this.pieces.push(new King(square,"black",this));
             break;
           case 8:
-            this.pieces.push(new Queen(square, 100,"black",this));
+            this.pieces.push(new Queen(square,"black",this));
             break;
           case 9:
-            this.pieces.push(new Bishop(square, 100,"black",this));
+            this.pieces.push(new Bishop(square,"black",this));
             break;
           case 10:
-            this.pieces.push(new Knight(square, 100,"black",this));
+            this.pieces.push(new Knight(square,"black",this));
             break;
           case 11:
-            this.pieces.push(new Rook(square, 100,"black",this));
+            this.pieces.push(new Rook(square,"black",this));
             break;
           case 12:
-            this.pieces.push(new Pawn(square, 100, 100,"black",this));
+            this.pieces.push(new Pawn(square,"black",this));
             break;
         }
         }
