@@ -130,11 +130,18 @@ export class Board {
         this.color = color;
         this.id = id;
         this.piece = false;
+        this.highlight = false;
     }
     draw(context) {
         context.fillStyle = this.color;
         context.fillRect(this.x, this.y, this.width, this.height);
         context.fillStyle = "black";
+        if (this.highlight) {
+          context.fillStyle = "rgba(240, 230, 48, 0.6)";
+          context.fillRect(this.x+5, this.y+5, this.width-10, this.height-10);
+          // context.lineWidth  = 10
+        // context.strokeRect(this.x+5, this.y+5, this.width-10, this.height-10);
+        }
     }
     detectCollision(position)
 {

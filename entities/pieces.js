@@ -14,7 +14,9 @@ class Piece{
         if ( this.detectCollision(position)&&position.isDown && this.board.turn == this.color) {
             if(this.board.selectedPiece != this){
                 this.board.selectedPiece = this;
+                this.square.highlight = true;
                 console.log(this);
+
             }
             else{
                 this.board.selectedPiece = false;
@@ -24,13 +26,15 @@ class Piece{
 
                    
         }
+        if(this.board.selectedPiece != this){
+            this.square.highlight = false;
+        }
     // }
     }
     draw(context) {
 
         if(this.board.selectedPiece == this)
             {
-                this.image.style.outlite = "10px solid black";
             context.drawImage(this.image, this.x+this.width*.2, this.y-this.height*.1, this.width*.6, this.height*1.1);
 
             }
