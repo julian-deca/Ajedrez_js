@@ -11,7 +11,7 @@ class Piece{
     
     update(position) {
         // if(this.puedeMoverse()){
-        if ( this.detectCollision(position)&&position.isDown && this.board.selectedPiece != this ) {
+        if ( this.detectCollision(position)&&position.isDown && this.board.selectedPiece != this && this.board.turn == this.color) {
             
 
                    this.board.selectedPiece = this;

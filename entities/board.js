@@ -11,6 +11,7 @@ export class Board {
       this.pieces = [];
       this.selectedPiece = false;
       this.selectedSquare = false;
+      this.turn = "white";
       // this.createSquares();
       // this.addPieces();
       this.refresh()
@@ -33,6 +34,7 @@ export class Board {
                 console.log(this.selectedSquare)
 
                 this.refresh();
+                this.nextTurn();
             }
             this.selectedSquare = false;
             this.selectedPiece = false;
@@ -72,7 +74,7 @@ export class Board {
             this.pieces.push(new Knight(square, 100,"white",this));
             break;
           case 5:
-        this.pieces.push(new Rook(square, 100,"white",this));
+            this.pieces.push(new Rook(square, 100,"white",this));
             break;
           case 6:
             this.pieces.push(new Pawn(square, 100, 100,"white",this));
@@ -100,87 +102,14 @@ export class Board {
       }
     }
   }
-    // createSquares(){
-    //     for(let i = 0; i < 8; i++){
-    //         for (let j = 0; j < 8; j++){
-    //             let color;
-    //             if((i%2==0 && j%2!=0)||(i%2!=0 && j%2==0)){
-    //                 color = "#739954";
-    //             }
-    //             else{
-    //                color = "#f7ffd6";
-    //             }
-    //         this.squares.push(new Square(i*100, j*100,100,100,color,{x:i,y:j}));
-    //         }}
-    // }
-    addPieces(){
-        this.pieces.push(new King((this.squares.find(square => {
-            return square.id.x == 4 && square.id.y == 7
-          })), 100,"white",this));
-        this.pieces.push(new King(this.squares.find(square => {
-            return square.id.x == 4 && square.id.y == 0
-          }), 100,"black",this));
-
-        this.pieces.push(new Queen(this.squares.find((square) => {
-            return square.id.x == 3 && square.id.y == 7
-          }), 100,"white",this));
-        this.pieces.push(new Queen(this.squares.find((square) => {
-            return square.id.x == 3 && square.id.y == 0
-          }), 100,"black",this));
-
-        this.pieces.push(new Rook(this.squares.find(square => {
-            return square.id.x == 0 && square.id.y == 7
-          }), 100,"white",this));
-        this.pieces.push(new Rook(this.squares.find(square => {
-            return square.id.x == 7 && square.id.y == 7
-          }), 100,"white",this));
-
-        this.pieces.push(new Rook(this.squares.find(square => {
-            return square.id.x == 0 && square.id.y == 0
-          }), 100,"black",this));
-        this.pieces.push(new Rook(this.squares.find(square => {
-            return square.id.x == 7 && square.id.y == 0
-          }), 100,"black",this));
-
-        this.pieces.push(new Bishop(this.squares.find(square => {
-            return square.id.x == 2 && square.id.y == 0
-          }), 100,"black",this));
-        this.pieces.push(new Bishop(this.squares.find(square => {
-            return square.id.x == 5 && square.id.y == 0
-          }), 100,"black",this));
-
-        this.pieces.push(new Bishop(this.squares.find(square => {
-            return square.id.x == 2 && square.id.y == 7
-          }), 100,"white",this));
-        this.pieces.push(new Bishop(this.squares.find(square => {
-            return square.id.x == 5 && square.id.y == 7
-          }), 100,"white",this));
-
-        this.pieces.push(new Knight(this.squares.find(square => {
-            return square.id.x == 1 && square.id.y == 0
-          }), 100,"black",this));
-        this.pieces.push(new Knight(this.squares.find(square => {
-            return square.id.x == 6 && square.id.y == 0
-          }), 100,"black",this));
-
-        this.pieces.push(new Knight(this.squares.find(square => {
-            return square.id.x == 1 && square.id.y == 7
-          }), 100,"white",this));
-        this.pieces.push(new Knight(this.squares.find(square => {
-            return square.id.x == 6 && square.id.y == 7
-          }), 100,"white",this));
-
-
-        for(let i = 0; i<8;i++){
-            this.pieces.push(new Pawn(this.squares.find(square => {
-                return square.id.x == i && square.id.y == 1
-              }), 100, 100,"black",this));
-            this.pieces.push(new Pawn(this.squares.find(square => {
-                return square.id.x == i && square.id.y == 6
-              }), 100, 100,"white",this));
-
-        }
+   nextTurn(){
+    if(this.turn == "white"){
+      this.turn = "black";
     }
+    else{
+      this.turn = "white";
+    }
+   }
     
   //   isOccupied(square) {
   //     return square.piece !== false;
