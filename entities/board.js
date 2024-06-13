@@ -36,6 +36,8 @@ export class Board {
                 this.grid[this.selectedPiece.square.id.y][this.selectedPiece.square.id.x] = 0
                 this.grid[this.selectedSquare.id.y][this.selectedSquare.id.x] = this.selectedPiece.value;
                 console.log(this.grid[this.selectedPiece.square.id.x][this.selectedPiece.square.id.y])
+                console.log(this.grid)
+
                 console.log(this.selectedSquare)
 
                 this.refresh();
@@ -49,8 +51,8 @@ export class Board {
      
     }
     refresh() {
-      this.squares.splice(0,this.squares.length -1);
-      this.pieces.splice(0,this.pieces.length -1);
+      this.squares.splice(0,this.squares.length );
+      this.pieces.splice(0,this.pieces.length );
 
       for(let i = 0; i < this.grid.length; i++) {
         for(let j = 0; j < this.grid[i].length; j++) {
@@ -103,9 +105,9 @@ export class Board {
             this.pieces.push(new Pawn(square,"black",this));
             break;
         }
-        }
       }
     }
+  }
   }
    nextTurn(){
     if(this.turn == "white"){
